@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,10 @@ public class ProductListActivity extends AppCompatActivity {
         ProductAdapter pa = new ProductAdapter(initProductList(),this);
         rv.setAdapter(pa);
 
+    }
+    public void clickAdd(View view){
+        Intent intent3= new Intent(this, AddActivity.class);
+        startActivity(intent3);
     }
 
     private List<Product> initProductList(){
