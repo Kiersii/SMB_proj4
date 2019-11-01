@@ -70,19 +70,22 @@
             android:id="@+id/rbBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Czarny" />
+            android:text="Czarny"
+            android:textColor="#000000"/>
 
         <RadioButton
             android:id="@+id/rbRed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Czerwony" />
+            android:text="Czerwony"
+            android:textColor="#ff0000"/>
 
         <RadioButton
             android:id="@+id/rbYellow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Żółty" />
+            android:text="Żółty"
+            android:textColor="#EEFF00"/>
     </RadioGroup>
 
     <Button

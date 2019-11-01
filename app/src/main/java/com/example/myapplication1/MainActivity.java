@@ -8,17 +8,32 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
     //SharedPreferences sp;
+    private TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //sp=getSharedPreferences("preferences", Context.MODE_PRIVATE);
     }
 
+    protected void onStart() {
+        super.onStart();
+        tv=findViewById(R.id.textView);
+        SharedPreferences a = getSharedPreferences("Options1", Context.MODE_PRIVATE);
+
+        int font = a.getInt("size",24);
+        int color = a.getInt("color",0xff000000);
+        tv.setTextSize(font);
+        tv.setTextColor(color);
+      //  String color = a.getString("color","");
+
+    }
     public void clickOptions(View view){
         Intent intent1= new Intent(this, OptionsActivity.class);
         startActivity(intent1);

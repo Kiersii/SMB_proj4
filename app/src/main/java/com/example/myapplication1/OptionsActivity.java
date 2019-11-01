@@ -28,16 +28,24 @@ public class OptionsActivity extends AppCompatActivity {
         tvColor =findViewById(R.id.tv4);
         etFont = findViewById(R.id.et1);
         rg = findViewById(R.id.radioGroup);
-        sp=getSharedPreferences("Options", Context.MODE_PRIVATE);
+        sp=getSharedPreferences("Options1", Context.MODE_PRIVATE);
     }
+
 
     public void clickCommit(View view){
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("size", etFont.getText().toString());
+        //editor.putString("size", etFont.getText().toString());
+        editor.putInt("size", Integer.parseInt(etFont.getText().toString()));
         int selectedID = rg.getCheckedRadioButtonId();
         rb=findViewById(selectedID);
-        editor.putString("color",rb.getText().toString());
+//        editor.putString("color",rb.getText().toString());
+        editor.putInt("color", rb.getCurrentTextColor());
         editor.apply();
+
+        int font = sp.getInt("size",24);
+        int color = sp.getInt("color",0xff000000);
+        tvFont.setTextSize(font);
+        tvFont.setTextColor(color);
         //jeszcze zrobic jakiegos defaulta tutaj
       /*  //SharedPreferences a = getPreferences("Options", Context.MODE_PRIVATE);
         String str1 = sp.getString("size","nic");
