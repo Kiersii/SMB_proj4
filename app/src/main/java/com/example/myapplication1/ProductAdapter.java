@@ -35,11 +35,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product p = productList.get(position);
-        holder.getName().setText(p.getName());
-        holder.getPrice().setText(p.getPrice()+"");
-        holder.getCount().setText(p.getCount()+"");
-        holder.getBought().setChecked(p.isBought());
+        if(productList != null) {
+            Product p = productList.get(position);
+            holder.getName().setText(p.getName());
+            holder.getPrice().setText(p.getPrice() + "");
+            holder.getCount().setText(p.getCount() + "");
+            holder.getBought().setChecked(p.isBought());
+        }else{
+            holder.getName().setText("pusto");
+        }
 
     }
 

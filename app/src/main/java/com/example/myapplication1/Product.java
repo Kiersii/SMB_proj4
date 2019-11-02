@@ -1,7 +1,15 @@
 package com.example.myapplication1;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "product_table")
 public class Product {
+    @PrimaryKey
+    @NonNull
     private String name;
+
     private int price;
     private int count;
     private boolean bought;
