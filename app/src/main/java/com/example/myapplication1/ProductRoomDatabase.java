@@ -1,10 +1,12 @@
 package com.example.myapplication1;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {Product.class}, version = 1)
 public abstract class ProductRoomDatabase extends RoomDatabase {
@@ -17,7 +19,8 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
             synchronized (ProductRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            ProductRoomDatabase.class,"product_database")
+                            ProductRoomDatabase.class, "product_database")
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
@@ -25,4 +28,30 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    private static RoomDatabase.Callback sRoomDatabaseCallback =
+            new RoomDatabase.Callback() {
+
+            public void onOpen(SupportSQLiteDatabase db){
+                super.onOpen(db);
+                new PopulateDbAsync(INSTANCE).execute();
+            }
+    };
+    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+
+        private final ProductDao mDao;
+
+        PopulateDbAsync(ProductRoomDatabase db) {
+            mDao = db.productDao();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+           // mDao.deleteAll();
+            Product product = new Product("Woda",2,10,false);
+            mDao.insert(product);
+            product =new Product("Banan",3,5,false);
+            mDao.insert(product);
+            return null;
+        }
+    }
 }

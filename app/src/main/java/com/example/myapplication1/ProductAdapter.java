@@ -23,14 +23,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.context = context;
     }
 
+    private LayoutInflater mInflater;
+    ProductAdapter(Context context){
+        mInflater=LayoutInflater.from(context);
+    }
+
+
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_element, parent, false);
+       // View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_element, parent, false);
+        View itemView = mInflater.inflate(R.layout.product_element,parent,false);
 
-        ProductViewHolder pvh = new ProductViewHolder(v);
-
-        return pvh;
+       // ProductViewHolder pvh = new ProductViewHolder(v);
+    return new ProductViewHolder(itemView);
+      //  return pvh;
     }
 
     @Override
@@ -47,9 +54,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     }
 
+    void setProductList(List<Product> products){
+        productList=products;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
+        if(productList !=null)
         return productList.size();
+        else return 0;
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
