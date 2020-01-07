@@ -1,25 +1,32 @@
 package com.example.myapplication1;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.myapplication1.Database.Product;
+
 import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
 
     public static final int NEW_PRODUCT_ACTIVITY_REQUEST_CODE = 1;
+    public static final int EDIT_PRODUCT_ACTIVITY_REQUEST_CODE = 2;
     private ProductViewModel mProductViewModel;
     private RecyclerView rv;
+    private ProductAdapter pa;
+    //Intent intent3= new Intent(this, AddActivity.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +40,11 @@ public class ProductListActivity extends AppCompatActivity {
         //new ViewModelProvider(this).get(ProductViewModel.class);
 
         //final ProductAdapter pa = new ProductAdapter(initProductList(),this);//w tutorialu byla funkcja z jednym argumentem
-        final ProductAdapter pa = new ProductAdapter(this);
+        //final ProductAdapter pa = new ProductAdapter(this);
+        pa= new ProductAdapter(this);
         initProductList(pa);
         rv.setAdapter(pa);
-
+        setListeners();
 
     }
 
@@ -51,22 +59,78 @@ public class ProductListActivity extends AppCompatActivity {
     }
     public void clickAdd(View view){
         Intent intent3= new Intent(this, AddActivity.class);
-        //startActivity(intent3);
+        intent3.putExtra("requestcode", NEW_PRODUCT_ACTIVITY_REQUEST_CODE);
         startActivityForResult(intent3, NEW_PRODUCT_ACTIVITY_REQUEST_CODE);
 
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == NEW_PRODUCT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Product product = new Product(data.getStringExtra(AddActivity.EXTRA_REPLY),1,1,false);
-            mProductViewModel.insert(product);
+//todo kody dla add 1 1 dla edit 2 2
+        System.out.println(requestCode+" "+resultCode);
+        if(requestCode==EDIT_PRODUCT_ACTIVITY_REQUEST_CODE && resultCode== RESULT_OK){
+            System.out.println("wejscie do ifa xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            Product product = data.getParcelableExtra("produkt");
+            mProductViewModel.updateProduct(product);
+        }else
+            if (requestCode == NEW_PRODUCT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            /*Product product = new Product(data.getStringExtra(AddActivity.EXTRA_REPLY),
+                                            data.getIntExtra(AddActivity.price_reply, 0 ),
+                                        data.getIntExtra(AddActivity.count_reply,0),
+                                        false);*/
+            Product product = data.getParcelableExtra("produkt");
+            mProductViewModel.insertProduct(product);
         } else {
             Toast.makeText(
                     getApplicationContext(),
                     "dupa cycki nie działą",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void setListeners(){
+        pa.setOnBoughtClickListener(new ProductAdapter.OnBoughtClickListener() {
+            @Override
+            public void OnBoughtClickListener(Product product) {
+                if(!product.isBought()){
+                    product.setBought(true);
+                }else{
+                    product.setBought(false);
+                }
+                mProductViewModel.updateProduct(product);
+            }
+        });
+
+        pa.setOnItemLongClickListener(new ProductAdapter.OnItemLongClickListener() {
+            @Override
+            public void OnItemLongClick(final Product product) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProductListActivity.this);
+                builder.setTitle("Usuwanie produktu");
+                builder.setMessage("Czy chcesz usunąć produkt?");
+                builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mProductViewModel.deleteProduct(product);
+                    }
+                });
+                builder.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
+        pa.setOnItemClickListener(new ProductAdapter.OnItemCLickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                Intent intent3= new Intent(getApplicationContext(),AddActivity.class);
+                intent3.putExtra("produkt",product);
+                intent3.putExtra("requestcode", EDIT_PRODUCT_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent3, EDIT_PRODUCT_ACTIVITY_REQUEST_CODE);
+
+            }
+        });
     }
 
     /*private List<Product> initProductList(ProductAdapter pa){

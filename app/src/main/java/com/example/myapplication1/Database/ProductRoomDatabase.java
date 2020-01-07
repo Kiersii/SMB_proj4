@@ -1,4 +1,4 @@
-package com.example.myapplication1;
+package com.example.myapplication1.Database;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -10,16 +10,16 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {Product.class}, version = 1)
 public abstract class ProductRoomDatabase extends RoomDatabase {
-    public abstract ProductDao productDao();
 
+    public abstract ProductDao productDao();
     private static volatile ProductRoomDatabase INSTANCE;
 
-    static ProductRoomDatabase getDatabase(final Context context) {
+     public static ProductRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (ProductRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            ProductRoomDatabase.class, "product_database")
+                            ProductRoomDatabase.class, "products_database")
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -28,6 +28,7 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    //todo to tutaj to chyba do wyjebania wszystko
     private static RoomDatabase.Callback sRoomDatabaseCallback =
             new RoomDatabase.Callback() {
 
@@ -47,10 +48,10 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
            // mDao.deleteAll();
-            Product product = new Product("Woda",2,10,false);
-            mDao.insert(product);
+           /* Product product = new Product("Woda",2,10,false);
+            mDao.insertProduct(product);
             product =new Product("Banan",3,5,false);
-            mDao.insert(product);
+            mDao.insertProduct(product);*/
             return null;
         }
     }

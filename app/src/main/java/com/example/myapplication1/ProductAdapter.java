@@ -12,11 +12,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication1.Database.Product;
+
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>  {
     private List<Product> productList;
     private Context context;
+    private OnBoughtClickListener boughtClickListener;
+    private OnItemCLickListener itemClickListener;
+    private OnItemLongClickListener itemLongClickListener;
 
     public ProductAdapter(List<Product> productList, Context context) {
         this.productList = productList;
@@ -24,7 +29,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     private LayoutInflater mInflater;
-    ProductAdapter(Context context){
+
+    public ProductAdapter(Context context){
         mInflater=LayoutInflater.from(context);
     }
 
@@ -66,7 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         else return 0;
     }
 
-    public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ProductViewHolder extends RecyclerView.ViewHolder {//implements View.OnClickListener {
 
         private TextView name;
         private TextView price;
@@ -112,9 +118,37 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             this.count=itemView.findViewById(R.id.tvCount);
             this.bought=itemView.findViewById(R.id.cbBought);
 
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
+            bought.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(boughtClickListener !=null && position != RecyclerView.NO_POSITION){
+                        boughtClickListener.OnBoughtClickListener(productList.get(position));
+                    }
+                }
+            });
 
-            bought.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int position = getAdapterPosition();
+                    if(itemLongClickListener !=null && position != RecyclerView.NO_POSITION){
+                        itemLongClickListener.OnItemLongClick(productList.get(position));
+                    }
+                    return true;
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(boughtClickListener != null && position != RecyclerView.NO_POSITION);
+                        itemClickListener.onItemClick(productList.get(position));
+                }
+            });
+            /*bought.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
@@ -126,16 +160,36 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
                     }
                 }
-            });
+            });*/
         }
 
 
-        @Override
+        /*@Override
         public void onClick(View v) {
             Toast.makeText(ProductAdapter.this.context,
                     "zaznaczono "+ name.getText(),
                     Toast.LENGTH_LONG).show();
 
-        }
+        }*/
     }
+    public interface OnBoughtClickListener {
+        void OnBoughtClickListener(Product product);
+    }
+    public void setOnBoughtClickListener(OnBoughtClickListener onClickListener) {
+        this.boughtClickListener = onClickListener;
+    }
+    public interface OnItemCLickListener {
+        void onItemClick(Product product);
+    }
+    public interface OnItemLongClickListener {
+        void OnItemLongClick(Product product);
+    }
+    public void setOnItemClickListener(OnItemCLickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener itemLongClickListener) {
+        this.itemLongClickListener = itemLongClickListener;
+    }
+
 }

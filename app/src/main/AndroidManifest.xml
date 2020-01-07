@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="com.example.myapplication1.ContentProvider"
+            android:name=".ContentProvider.ProductContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>
