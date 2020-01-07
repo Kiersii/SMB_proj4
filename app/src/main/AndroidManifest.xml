@@ -12,7 +12,6 @@
         <activity android:name=".ProductListActivity"></activity>
         <activity android:name=".OptionsActivity" />
         <activity android:name=".AddActivity" />
-        <activity android:name=".EditActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,10 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider
-            android:authorities="com.example.myapplication1.ContentProvider"
-            android:name=".ContentProvider.ProductContentProvider"
-            android:exported="true"/>
+
     </application>
 
 </manifest>

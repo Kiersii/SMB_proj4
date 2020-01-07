@@ -25,27 +25,18 @@ public class ProductListActivity extends AppCompatActivity {
     private ProductViewModel mProductViewModel;
     private RecyclerView rv;
     private ProductAdapter pa;
-    //Intent intent3= new Intent(this, AddActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list2);
-
         rv= findViewById(R.id.rv1);
-
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
-
-        //new ViewModelProvider(this).get(ProductViewModel.class);
-
-        //final ProductAdapter pa = new ProductAdapter(initProductList(),this);//w tutorialu byla funkcja z jednym argumentem
-        //final ProductAdapter pa = new ProductAdapter(this);
         pa= new ProductAdapter(this);
         initProductList(pa);
         rv.setAdapter(pa);
         setListeners();
-
     }
 
     public void initProductList(final ProductAdapter pa){
@@ -65,24 +56,27 @@ public class ProductListActivity extends AppCompatActivity {
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//todo kody dla add 1 1 dla edit 2 2
-        System.out.println(requestCode+" "+resultCode);
         if(requestCode==EDIT_PRODUCT_ACTIVITY_REQUEST_CODE && resultCode== RESULT_OK){
-            System.out.println("wejscie do ifa xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             Product product = data.getParcelableExtra("produkt");
             mProductViewModel.updateProduct(product);
+
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Produkt został zedytowany.",
+                    Toast.LENGTH_LONG).show();
         }else
             if (requestCode == NEW_PRODUCT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            /*Product product = new Product(data.getStringExtra(AddActivity.EXTRA_REPLY),
-                                            data.getIntExtra(AddActivity.price_reply, 0 ),
-                                        data.getIntExtra(AddActivity.count_reply,0),
-                                        false);*/
             Product product = data.getParcelableExtra("produkt");
             mProductViewModel.insertProduct(product);
+
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Produkt został dodany.",
+                        Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(
                     getApplicationContext(),
-                    "dupa cycki nie działą",
+                    "Nic nie dodano/edytowano.",
                     Toast.LENGTH_LONG).show();
         }
     }

@@ -40,8 +40,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        // View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_element, parent, false);
         View itemView = mInflater.inflate(R.layout.product_element,parent,false);
-
-       // ProductViewHolder pvh = new ProductViewHolder(v);
+        // ProductViewHolder pvh = new ProductViewHolder(v);
     return new ProductViewHolder(itemView);
       //  return pvh;
     }
@@ -118,7 +117,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             this.count=itemView.findViewById(R.id.tvCount);
             this.bought=itemView.findViewById(R.id.cbBought);
 
-            //itemView.setOnClickListener(this);
+
             bought.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -148,29 +147,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                         itemClickListener.onItemClick(productList.get(position));
                 }
             });
-            /*bought.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked){
-                        Toast.makeText(ProductAdapter.this.context,
-                                name.getText()+" kupione.",
-                                Toast.LENGTH_LONG).show();
-                    }else
-                    {
-
-                    }
-                }
-            });*/
         }
-
-
-        /*@Override
-        public void onClick(View v) {
-            Toast.makeText(ProductAdapter.this.context,
-                    "zaznaczono "+ name.getText(),
-                    Toast.LENGTH_LONG).show();
-
-        }*/
     }
     public interface OnBoughtClickListener {
         void OnBoughtClickListener(Product product);

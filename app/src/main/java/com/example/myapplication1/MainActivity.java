@@ -12,14 +12,11 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    //SharedPreferences sp;
     private TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //sp=getSharedPreferences("preferences", Context.MODE_PRIVATE);
     }
 
     protected void onStart() {
@@ -31,8 +28,6 @@ public class MainActivity extends Activity {
         int color = a.getInt("color",0xff000000);
         tv.setTextSize(font);
         tv.setTextColor(color);
-      //  String color = a.getString("color","");
-
     }
     public void clickOptions(View view){
         Intent intent1= new Intent(this, OptionsActivity.class);

@@ -34,10 +34,8 @@ public class AddActivity extends AppCompatActivity {
         bought=findViewById(R.id.checkBox);
 
         final Intent i = getIntent();
-        //i.getIntExtra("requestcode",0);
-       // System.out.println( i.getIntExtra("requestcode",0));
+
         if(i.getIntExtra("requestcode",0)==2){
-           // System.out.println("weszło do ifa");
             product = i.getParcelableExtra("produkt");
             EditName.setText(product.getName());
             EditPrice.setText(product.getPrice()+ "");
@@ -52,10 +50,7 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent replyIntent = new Intent();
-               /* if(TextUtils.isEmpty(EditName.getText())) {
-                    setResult(RESULT_CANCELED, replyIntent);
-                }else*/
-                    if(i.getIntExtra("requestcode",0)==2){
+                if(i.getIntExtra("requestcode",0)==2){
                    product.setName(EditName.getText().toString());
                    product.setPrice(Integer.parseInt(EditPrice.getText().toString()));
                    product.setCount(Integer.parseInt(EditCount.getText().toString()));
@@ -75,36 +70,5 @@ public class AddActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-        /*button.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent replyIntent = new Intent();
-                if(TextUtils.isEmpty(EditName.getText())) {
-                    setResult(RESULT_CANCELED, replyIntent);
-                }else{
-                    String name= EditName.getText().toString();
-                    replyIntent.putExtra(EXTRA_REPLY,name);
-                    int price = Integer.parseInt(EditPrice.getText().toString());
-                    replyIntent.putExtra(price_reply,price);
-                    int count = Integer.parseInt(EditCount.getText().toString());
-                    replyIntent.putExtra(count_reply, count);
-                    setResult(RESULT_OK,replyIntent);
-                }
-                finish();
-            }
-        });*/
     }
 }

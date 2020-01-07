@@ -34,11 +34,11 @@ public class OptionsActivity extends AppCompatActivity {
 
     public void clickCommit(View view){
         SharedPreferences.Editor editor = sp.edit();
-        //editor.putString("size", etFont.getText().toString());
+
         editor.putInt("size", Integer.parseInt(etFont.getText().toString()));
         int selectedID = rg.getCheckedRadioButtonId();
         rb=findViewById(selectedID);
-//        editor.putString("color",rb.getText().toString());
+
         editor.putInt("color", rb.getCurrentTextColor());
         editor.apply();
 

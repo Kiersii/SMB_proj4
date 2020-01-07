@@ -105,15 +105,4 @@ public class Product implements Parcelable {
         IdProduct = idProduct;
     }
 
-    //contentprovider
-    public static Product fromContentValues(ContentValues values){
-        final Product product = new Product();
-      //  if(values.containsKey("IdProduct")) product.setIdProduct(values.getAsInteger("IdProduct"));
-        if(values.containsKey("name")) product.setName(values.getAsString("name"));
-        if(values.containsKey("price")) product.setPrice(values.getAsInteger("price"));
-        if(values.containsKey("count")) product.setCount(values.getAsInteger("count"));
-        if(values.containsKey("bought")) product.setBought(values.getAsBoolean("bought"));
-
-        return product;
-    }
 }

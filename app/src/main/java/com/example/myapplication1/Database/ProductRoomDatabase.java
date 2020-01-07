@@ -20,16 +20,14 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ProductRoomDatabase.class, "products_database")
-                            .addCallback(sRoomDatabaseCallback)
+                            //.addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
-
-    //todo to tutaj to chyba do wyjebania wszystko
-    private static RoomDatabase.Callback sRoomDatabaseCallback =
+   /* private static RoomDatabase.Callback sRoomDatabaseCallback =
             new RoomDatabase.Callback() {
 
             public void onOpen(SupportSQLiteDatabase db){
@@ -48,11 +46,11 @@ public abstract class ProductRoomDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
            // mDao.deleteAll();
-           /* Product product = new Product("Woda",2,10,false);
+           *//* Product product = new Product("Woda",2,10,false);
             mDao.insertProduct(product);
             product =new Product("Banan",3,5,false);
-            mDao.insertProduct(product);*/
+            mDao.insertProduct(product);*//*
             return null;
         }
-    }
+    }*/
 }

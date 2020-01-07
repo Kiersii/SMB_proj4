@@ -30,6 +30,4 @@ public interface ProductDao {
     @Query("DELETE FROM products_table")
     void deleteAll();
 
-    @Query("SELECT * FROM PRODUCTS_TABLE WHERE IdProduct = :IdProduct")
-    Cursor getProductWithCursor(int IdProduct);
 }
