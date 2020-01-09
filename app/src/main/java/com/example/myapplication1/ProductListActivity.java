@@ -69,10 +69,10 @@ public class ProductListActivity extends AppCompatActivity {
             Product product = data.getParcelableExtra("produkt");
             mProductViewModel.insertProduct(product);
 
-                Toast.makeText(
+            /*    Toast.makeText(
                         getApplicationContext(),
                         "Produkt został dodany.",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_LONG).show();*/
         } else {
             Toast.makeText(
                     getApplicationContext(),

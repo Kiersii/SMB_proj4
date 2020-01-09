@@ -65,6 +65,11 @@ public class Product implements Parcelable {
         }
     };
 
+    @NonNull
+    @Override
+    public String toString() {
+        return this.getName()+ " Ilość: "+ this.getCount();
+    }
 
     public String getName() {
         return name;

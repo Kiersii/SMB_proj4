@@ -65,7 +65,16 @@ public class AddActivity extends AppCompatActivity {
                                 Integer.parseInt(EditCount.getText().toString()),
                                 bought.isChecked());
                     replyIntent.putExtra("produkt", product);
+
+                    Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("com.example.MY_CUSTOM_INTENT");
+                        broadcastIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        String s = String.valueOf(product);
+//System.out.println(s);
+                        broadcastIntent.putExtra("opis",s);
+                        sendBroadcast(broadcastIntent,"com.example.my_permissions.MY_PERMISSION");
                     setResult(RESULT_OK,replyIntent);
+
                 }
                 finish();
             }
