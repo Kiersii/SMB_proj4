@@ -31,7 +31,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.407" />
+        app:layout_constraintVertical_bias="0.757" />
 
     <Button
         android:id="@+id/buttonOptions"
@@ -39,10 +39,37 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="160dp"
         android:layout_marginRight="160dp"
-        android:layout_marginBottom="184dp"
+        android:layout_marginBottom="292dp"
         android:onClick="clickOptions"
         android:text="Opcje"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonListShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickListShop"
+        android:text="Lista sklepów"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOptions"
+        app:layout_constraintVertical_bias="0.172" />
+
+    <Button
+        android:id="@+id/buttonMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:onClick="clickMap"
+        android:text="Mapa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintVertical_bias="0.176" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,4 +39,14 @@ public class MainActivity extends Activity {
         startActivity(intent2);
 
     }
+
+    public void clickMap(View view) {
+        Intent intent2= new Intent(this, MapsActivity.class);
+        startActivity(intent2);
+    }
+
+    public void clickListShop(View view) {
+        Intent intent2= new Intent(this, ListActivity.class);
+        startActivity(intent2);
+    }
 }
